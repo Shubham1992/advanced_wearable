@@ -170,6 +170,12 @@
             android:name=".gcm.RegistrationIntentService"
             android:exported="false" >
         </service>
+        <service android:name=".wear.TodayWearIntentService"
+            android:exported="false"
+            >
+
+        </service>
+
     </application>
 
 </manifest>

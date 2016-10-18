@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion "21.1.2"
 
     defaultConfig {
@@ -19,7 +19,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', MyOpenWeatherMapApiKey
+        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', "\"65ae8693ef9c3003fa3b9edd1349bd72\""
     }
 }
 
@@ -34,4 +34,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.google.android.apps.muzei:muzei-api:2.0'
     compile 'com.google.android.gms:play-services-gcm:7.5.0'
+    compile 'com.google.android.gms:play-services-wearable:9.2.0'
+    wearApp project(':sunshine')
 }
