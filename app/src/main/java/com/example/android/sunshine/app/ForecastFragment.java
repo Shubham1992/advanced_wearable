@@ -461,16 +461,27 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             }
         }else {
 
-            sendDataToWearable(2.3d);
+            sendDataToWearable();
         }
     }
-    private void sendDataToWearable(double maxTmp) {
+    private void sendDataToWearable() {
+        Cursor c = mForecastAdapter.getCursor();
+        c.moveToFirst();
+        double maxTmp = c.getDouble(COL_WEATHER_MAX_TEMP);
+        double minTmp = c.getDouble(COL_WEATHER_MIN_TEMP);
+        String forecast = c.getString(COL_WEATHER_DESC);
+
 
         PutDataMapRequest dataMap = PutDataMapRequest.create(DATA_PATH);
 
         dataMap.getDataMap().putDouble("maxTmp", maxTmp);
+        dataMap.getDataMap().putDouble("minTmp", minTmp);
+        dataMap.getDataMap().putString("forecast", forecast);
+
         PutDataRequest request = dataMap.asPutDataRequest();
         request.setUrgent();
+
+
 
         Wearable.DataApi.putDataItem(mGoogleApiClient, request)
                 .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {

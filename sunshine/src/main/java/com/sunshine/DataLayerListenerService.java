@@ -41,6 +41,7 @@ public class DataLayerListenerService extends WearableListenerService {
     private static final String DATA_ITEM_RECEIVED_PATH = "/data-item-received";
     public static final String COUNT_PATH = "/count";
     public static final String IMAGE_PATH = "/image";
+    public static final String DATA_PATH = "/data_path";
     public static final String IMAGE_KEY = "photo";
     GoogleApiClient mGoogleApiClient;
 
@@ -70,7 +71,7 @@ public class DataLayerListenerService extends WearableListenerService {
         for (DataEvent event : dataEvents) {
             Uri uri = event.getDataItem().getUri();
             String path = uri.getPath();
-            if (COUNT_PATH.equals(path)) {
+            if (DATA_PATH.equals(path)) {
                 // Get the node id of the node that created the data item from the host portion of
                 // the uri.
                 String nodeId = uri.getHost();
@@ -90,6 +91,10 @@ public class DataLayerListenerService extends WearableListenerService {
 
         // Check to see if the message is to start an activity
         if (messageEvent.getPath().equals(START_ACTIVITY_PATH)) {
+            Intent startIntent = new Intent(this, MainActivity.class);
+            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startIntent);
+        }else if (messageEvent.getPath().equals(DATA_PATH)) {
             Intent startIntent = new Intent(this, MainActivity.class);
             startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(startIntent);
